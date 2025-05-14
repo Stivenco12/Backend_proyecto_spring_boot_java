@@ -2,9 +2,7 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

@@ -1,7 +1,6 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.PrePersist;

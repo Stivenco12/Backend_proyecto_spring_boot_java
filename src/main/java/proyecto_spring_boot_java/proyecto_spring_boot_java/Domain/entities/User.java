@@ -1,7 +1,6 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
