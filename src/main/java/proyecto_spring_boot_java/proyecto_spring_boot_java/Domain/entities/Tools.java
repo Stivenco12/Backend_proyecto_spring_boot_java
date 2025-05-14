@@ -1,16 +1,13 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +15,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "tools")
+public class Tools {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,29 +25,16 @@ public class User {
     private String name;
 
     @Column(length = 50, nullable = true)
-    private String email;
+    private String description;
 
     @Column(length = 50, nullable = true)
-    private String phone;
+    private String type;
 
     @Column(length = 50, nullable = true)
-    private String password;
-
-    @Embedded
-    Audit audit = new Audit();
-
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private java.util.List<Address> addresses;
+    private String brand;
 
     @ManyToOne
-    @JoinColumn(name = "City_id")
+    @JoinColumn(name = "Supplier_id")
     @JsonBackReference
-    private City cityId;
-
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private java.util.List<Role> roles;
+    private Supplier supplierId;
 }
