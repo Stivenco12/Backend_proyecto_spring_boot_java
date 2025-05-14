@@ -3,6 +3,7 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,5 +27,8 @@ public class Payment {
     @JoinColumn(name = "payment_id")
     @JsonBackReference
     private Payment_type payment_typeId;
-    
+
+    @Embedded
+    Audit audit = new Audit();
+
 }

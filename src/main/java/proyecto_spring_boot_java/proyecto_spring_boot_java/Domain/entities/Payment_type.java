@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,4 +33,8 @@ public class Payment_type {
     @OneToMany(mappedBy = "payment_typeId",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Payment> payments = new HashSet<>();
+
+    @Embedded
+    Audit audit = new Audit();
+
 }

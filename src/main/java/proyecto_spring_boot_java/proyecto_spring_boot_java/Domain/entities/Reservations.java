@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,12 @@ public class Reservations {
     @JoinColumn(name = "Customer_id")
     @JsonBackReference
     private Customer customerId;
-    
+
     @Embedded
     Audit audit = new Audit();
+
+    @OneToOne
+    @JoinColumn(name = "Payment_id")
+    @JsonBackReference
+    private Payment paymentId;
 }
