@@ -10,7 +10,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @Service
 public class Category_toolImpl implements ICategory_tool {
     @Autowired
-    private ICategory_tool repository;
+    private Category_toolRepository repository;
 
     @Override
     public List<Category_tool> findAll() {
@@ -44,7 +44,7 @@ public class Category_toolImpl implements ICategory_tool {
     public Optional<Category_tool> delete(Long id) {
         Optional<Category_tool> category_toolOptional = repository.findById(id);
         category_toolOptional.ifPresent(categoryToolDb -> {
-            repository.delete(categoryToolDb.getId());
+            repository.delete(categoryToolDb);
         });
         return category_toolOptional;        
     }

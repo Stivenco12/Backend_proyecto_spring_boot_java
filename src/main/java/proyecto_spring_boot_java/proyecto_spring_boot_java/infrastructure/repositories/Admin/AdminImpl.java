@@ -10,8 +10,9 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class AdminImpl implements IAdminService {
+
     @Autowired
-    private IAdminService repository;
+    private AdminRepository repository;
 
     @Transactional(readOnly = true)
     @Override
@@ -44,7 +45,7 @@ public class AdminImpl implements IAdminService {
     public Optional<Admin> delete(Long id) {
         Optional<Admin> adminOptional = repository.findById(id);
         adminOptional.ifPresent(admintDb -> {
-            repository.delete(admintDb.getId());
+            repository.delete(admintDb);
         });
         return adminOptional;        
     }

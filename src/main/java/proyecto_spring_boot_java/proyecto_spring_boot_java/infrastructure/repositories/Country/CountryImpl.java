@@ -11,7 +11,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @Service
 public class CountryImpl implements ICountryService {
     @Autowired
-    private ICountryService repository;
+    private CountryRepository repository;
 
     @Transactional(readOnly = true)
     @Override
@@ -44,7 +44,7 @@ public class CountryImpl implements ICountryService {
     public Optional<Country> delete(Long id) {
         Optional<Country> countryOptional = repository.findById(id);
         countryOptional.ifPresent(countrytDb -> {
-            repository.delete(countrytDb.getId());
+            repository.delete(countrytDb);
         });
         return countryOptional;        
     }
