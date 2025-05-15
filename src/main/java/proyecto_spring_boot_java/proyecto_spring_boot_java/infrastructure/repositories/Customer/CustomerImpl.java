@@ -9,7 +9,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @Service
 public class CustomerImpl implements ICustomerService {
 
-    private final CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     public CustomerImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -17,7 +17,7 @@ public class CustomerImpl implements ICustomerService {
 
     @Override
     public List<Customer> findAll() {
-        return customerRepository.findAll();
+        return (List<Customer>)  customerRepository.findAll();
     }
 
     @Override
@@ -41,11 +41,10 @@ public class CustomerImpl implements ICustomerService {
 
     @Override
     public Optional<Customer> delete(Long id) {
-        if (customerRepository.existsById(id)) {
-            Optional<Customer> customer = customerRepository.findById(id);
-            customerRepository.deleteById(id);
-            return customer;
-        }
-        return Optional.empty();
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        customerOptional.ifPresent(customerDb -> {
+            customerRepository.delete(customerDb);
+        });
+        return customerOptional;
     }
 }

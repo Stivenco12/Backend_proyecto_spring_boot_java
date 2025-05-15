@@ -9,7 +9,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @Service
 public class Damage_reportImpl implements IDamage_reportService {
 
-    private final Damage_reportRepository damageReportRepository;
+    private Damage_reportRepository damageReportRepository;
 
     public Damage_reportImpl(Damage_reportRepository damageReportRepository) {
         this.damageReportRepository = damageReportRepository;
@@ -17,7 +17,7 @@ public class Damage_reportImpl implements IDamage_reportService {
 
     @Override
     public List<Damage_report> findAll() {
-        return damageReportRepository.findAll();
+        return (List<Damage_report>) damageReportRepository.findAll();
     }
 
     @Override
@@ -41,11 +41,10 @@ public class Damage_reportImpl implements IDamage_reportService {
 
     @Override
     public Optional<Damage_report> delete(Long id) {
-        if (damageReportRepository.existsById(id)) {
-            Optional<Damage_report> damageReport = damageReportRepository.findById(id);
+        Optional<Damage_report> damageReportOptional = damageReportRepository.findById(id);
+        damageReportOptional.ifPresent(damageReport -> {
             damageReportRepository.deleteById(id);
-            return damageReport;
-        }
-        return Optional.empty();
-    }
+        });
+        return damageReportOptional;
+}
 }

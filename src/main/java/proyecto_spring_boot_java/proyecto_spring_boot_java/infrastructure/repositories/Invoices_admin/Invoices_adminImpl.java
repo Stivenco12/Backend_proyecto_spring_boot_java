@@ -9,7 +9,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @Service
 public class Invoices_adminImpl implements IInvoices_adminService {
 
-    private final Invoices_adminRepository invoicesAdminRepository;
+    private Invoices_adminRepository invoicesAdminRepository;
 
     public Invoices_adminImpl(Invoices_adminRepository invoicesAdminRepository) {
         this.invoicesAdminRepository = invoicesAdminRepository;
@@ -17,7 +17,7 @@ public class Invoices_adminImpl implements IInvoices_adminService {
 
     @Override
     public List<Invoices_admin> findAll() {
-        return invoicesAdminRepository.findAll();
+        return (List<Invoices_admin>) invoicesAdminRepository.findAll();
     }
 
     @Override
@@ -41,11 +41,11 @@ public class Invoices_adminImpl implements IInvoices_adminService {
 
     @Override
     public Optional<Invoices_admin> delete(Long id) {
-        if (invoicesAdminRepository.existsById(id)) {
-            Optional<Invoices_admin> invoiceAdmin = invoicesAdminRepository.findById(id);
+        Optional<Invoices_admin> invoiceAdminOptional = invoicesAdminRepository.findById(id);
+        invoiceAdminOptional.ifPresent(invoiceAdmin -> {
             invoicesAdminRepository.deleteById(id);
-            return invoiceAdmin;
-        }
-        return Optional.empty();
+        });
+        return invoiceAdminOptional;
     }
+
 }
