@@ -1,53 +1,51 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repositories.User;
 
-import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.SaveUser;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IUserService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.models.exception.InvalidPasswordException;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.Role;
 
 @Service
 public class UserImpl implements IUserService {
 
-    private UserRepository repository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserImpl(UserRepository repository) {
-        this.repository = repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public User registrOneCustomer(SaveUser newUser) {
+        validatePassword(newUser);
+        User user = new User();
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        user.setUsername(newUser.getUsername());
+        user.setName(newUser.getName());
+        user.setRole(Role.ROLE_CUSTOMER);
+
+        return userRepository.save(user);
     }
 
     @Override
-    public List<User> findAll() {
-        return (List<User>) repository.findAll();
+    public Optional<User> findOneByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    @Override
-    public Optional<User> findById(Long id) {
-        return repository.findById(id);
-    }
+    private void validatePassword(SaveUser dto) {
 
-    @Override
-    public User save(User user) {
-        return repository.save(user);
-    }
-
-    @Override
-    public Optional<User> update(Long id, User user) {
-        Optional<User> existing = repository.findById(id);
-        if (existing.isPresent()) {
-            User dbUser = existing.get();
-            dbUser.setName(user.getName());
-            dbUser.setEmail(user.getEmail());
-            dbUser.setPassword(user.getPassword());
-            dbUser.setPhone(user.getPhone());
-            return Optional.of(repository.save(dbUser));
+        if(!StringUtils.hasText(dto.getPassword()) || !StringUtils.hasText(dto.getRepeatedPassword())){
+            throw new InvalidPasswordException("Passwords don't match");
         }
-        return Optional.empty();
-    }
 
-    @Override
-    public Optional<User> delete(Long id) {
-        Optional<User> userOptional = repository.findById(id);
-        userOptional.ifPresent(u -> repository.deleteById(id));
-        return userOptional;
+        if(!dto.getPassword().equals(dto.getRepeatedPassword())){
+            throw new InvalidPasswordException("Passwords don't match");
+        }
+
     }
 }
