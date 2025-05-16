@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +15,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,6 +51,16 @@ public class User implements UserDetails {
                 .map(each -> new SimpleGrantedAuthority(each))
                 .collect(Collectors.toList());
     }
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private java.util.List<Address> addresses;
+
+    @ManyToOne
+    @JoinColumn(name = "City_id")
+    @JsonBackReference
+    private City cityId;
 
     @Override
     public String getPassword() {

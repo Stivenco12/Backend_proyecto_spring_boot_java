@@ -25,17 +25,14 @@ public class HttpSecurityConfig {
                 .sessionManagement( sessMagConfig -> sessMagConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
                 .authenticationProvider(daoAuthProvider)
                 .authorizeHttpRequests( authReqConfig -> {
-
                     authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
                     authReqConfig.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
                     authReqConfig.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
                     authReqConfig.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
                     authReqConfig.requestMatchers(HttpMethod.GET, "/products").permitAll();
-
                     authReqConfig.anyRequest().authenticated();
                 } )
                 .build();
-
         return filterChain;
     }
 }

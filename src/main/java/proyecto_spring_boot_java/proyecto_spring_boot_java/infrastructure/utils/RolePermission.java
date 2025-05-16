@@ -1,7 +1,6 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils;
 
 public enum RolePermission {
-
     READ_ALL_PRODUCTS,
     READ_ONE_PRODUCT,
     CREATE_ONE_PRODUCT,

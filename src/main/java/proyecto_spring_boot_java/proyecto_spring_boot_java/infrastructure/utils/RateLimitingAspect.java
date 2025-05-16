@@ -3,11 +3,8 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-
-
 import jakarta.servlet.http.HttpServletRequest;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.models.exception.RateLimitExceededException;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RateLimitingAspect {
     private static final ConcurrentHashMap<String, AtomicInteger> requestCounts = new ConcurrentHashMap<>();
     private static final int REQUEST_LIMIT = 10;
-    private static final long TIME_LIMIT = 60000; // 1 minute
+    private static final long TIME_LIMIT = 60000; 
 
     private final HttpServletRequest request;
 
@@ -47,7 +44,7 @@ public class RateLimitingAspect {
         if (ipAddress == null || ipAddress.isEmpty()) {
             ipAddress = request.getRemoteAddr();
         } else {
-            ipAddress = ipAddress.split(",")[0]; // Get the first IP in case of multiple proxies
+            ipAddress = ipAddress.split(",")[0]; 
         }
         return ipAddress;
     }
