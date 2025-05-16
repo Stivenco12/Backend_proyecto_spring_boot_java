@@ -21,6 +21,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<RegisteredUser> registerOne(@RequestBody @Valid SaveUser newUser){
+        System.out.println("Usuario recibido: " + newUser.getUsername());
         RegisteredUser registeredUser = authenticationService.registerOneCustomer(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }

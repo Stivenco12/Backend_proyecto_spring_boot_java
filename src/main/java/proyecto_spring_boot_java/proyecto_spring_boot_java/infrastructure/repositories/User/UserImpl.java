@@ -28,8 +28,8 @@ public class UserImpl implements IUserService {
         user.setUsername(newUser.getUsername());
         user.setName(newUser.getName());
         user.setRole(Role.ROLE_CUSTOMER);
-
-        return userRepository.save(user);
+        System.out.println("Guardando usuario: " + user.getUsername());
+        return userRepository.save(user);   
     }
 
     @Override

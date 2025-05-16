@@ -1,7 +1,6 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 
 import jakarta.validation.constraints.Size;
-
 import java.io.Serializable;
 
 public class SaveUser implements Serializable {
@@ -45,5 +44,5 @@ public class SaveUser implements Serializable {
     public void setRepeatedPassword(String repeatedPassword) {
         this.repeatedPassword = repeatedPassword;
     }
-
+    public SaveUser() {}
 }
