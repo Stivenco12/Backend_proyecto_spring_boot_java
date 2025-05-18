@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Category_tool;
-import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.ICategory_tool;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.ICategory_toolService;
 
 @Service
-public class Category_toolImpl implements ICategory_tool {
+public class Category_toolImpl implements ICategory_toolService {
     @Autowired
     private Category_toolRepository repository;
 

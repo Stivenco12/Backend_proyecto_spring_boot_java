@@ -6,7 +6,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.SaveCatego
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Category;
 import java.util.Optional;
 
-public interface CategoryService {
+public interface ICategoryService {
     Page<Category> findAll(Pageable pageable);
 
     Optional<Category> findOneById(Long categoryId);

@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.SaveCategory;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Category;
-import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.CategoryService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.ICategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;

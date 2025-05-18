@@ -3,7 +3,7 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.contr
 import jakarta.validation.Valid;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.SaveCategory;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Category;
-import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.CategoryService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.ICategoryService;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.RateLimited;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class CategoryController {
 
     @Autowired
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
     @RateLimited
     @GetMapping
