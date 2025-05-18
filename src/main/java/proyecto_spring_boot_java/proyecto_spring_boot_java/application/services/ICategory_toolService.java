@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Category_tool;
 
-public interface ICategory_tool {
+public interface ICategory_toolService {
     List<Category_tool> findAll();
     Optional<Category_tool> findById(Long id);
     Category_tool save(Category_tool categoryTool);
