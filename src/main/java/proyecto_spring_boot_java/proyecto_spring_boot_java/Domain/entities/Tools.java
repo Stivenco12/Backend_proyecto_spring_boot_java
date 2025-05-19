@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -26,8 +27,18 @@ public class Tools {
     @Column(length = 50, nullable = true)
     private String name;
 
+     @Lob
+     @Column(name = "datos_imagen", nullable = false)
+     private byte[] datosImagen;
+
     @Column(length = 50, nullable = true)
     private String brand;
+
+    @Column(length = 50, nullable = true)
+    private String costo_diario;
+
+     @Column(length = 50, nullable = true)
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "Supplier_id")

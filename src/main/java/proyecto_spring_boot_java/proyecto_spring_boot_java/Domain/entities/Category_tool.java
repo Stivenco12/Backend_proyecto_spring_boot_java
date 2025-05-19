@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,12 +22,9 @@ public class Category_tool {
 
     @Column(length = 50, nullable = true)
     private String type;
-
-    @Column(length = 50, nullable = true)
-    private String description;
-    
-    @Column(length = 50, nullable = true)
-    private String image;
+    @Lob
+    @Column(name = "datos_imagen", nullable = false)
+    private byte[] datosImagen;
 
     @Embedded
     Audit audit = new Audit();

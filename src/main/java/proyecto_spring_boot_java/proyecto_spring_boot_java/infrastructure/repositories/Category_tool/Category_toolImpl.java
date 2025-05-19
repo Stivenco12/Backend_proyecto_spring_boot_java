@@ -33,8 +33,7 @@ public class Category_toolImpl implements ICategory_toolService {
         if(category_toolOld.isPresent()){
             Category_tool category_toolDb = category_toolOld.orElseThrow();
             category_toolDb.setType(category_tool.getType());
-            category_toolDb.setDescription(category_tool.getDescription());
-            category_toolDb.setImage(category_tool.getImage());
+            category_toolDb.setDatosImagen(category_tool.getDatosImagen());
             return Optional.of(repository.save(category_toolDb));
         }
         return Optional.empty();
