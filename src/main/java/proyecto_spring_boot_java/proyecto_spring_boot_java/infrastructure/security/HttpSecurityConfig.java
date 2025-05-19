@@ -1,5 +1,7 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.security;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,20 +24,35 @@ public class HttpSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(daoAuthProvider)
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+                auth.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
+                auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+                auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
+                auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
+                auth.anyRequest().authenticated();
+            })
+            .cors() 
+            ;
 
-        SecurityFilterChain filterChain = http
-                .csrf( csrfConfig -> csrfConfig.disable() )
-                .sessionManagement( sessMagConfig -> sessMagConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
-                .authenticationProvider(daoAuthProvider)
-                .authorizeHttpRequests( authReqConfig -> {
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.GET, "/products").permitAll();
-                    authReqConfig.anyRequest().authenticated();
-                } )
-                .build();
-        return filterChain;
+        return http.build();
+    }
+
+    // Define la configuración CORS en un bean
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://127.0.0.1:5500"));  // Cambia a la URL de tu frontend
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }

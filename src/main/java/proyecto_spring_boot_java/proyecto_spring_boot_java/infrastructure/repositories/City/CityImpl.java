@@ -2,9 +2,14 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repos
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.City;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.ICityService;
 
+
+@Service
 public class CityImpl implements ICityService {
     private final CityRepository repository;
 
