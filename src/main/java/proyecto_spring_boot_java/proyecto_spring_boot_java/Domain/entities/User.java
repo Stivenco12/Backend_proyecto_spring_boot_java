@@ -126,6 +126,13 @@ public class User implements UserDetails {
     }
     public String getTelefono() {
         return telefono;
+
+
+    }
+      public String setTelefono() {
+        return telefono;
+
+
     }
 }
 
