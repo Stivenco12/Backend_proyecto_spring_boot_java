@@ -35,9 +35,6 @@ public class Tools {
     @Column(length = 50, nullable = true)
     private int stock;
 
-    @Column(length = 50, nullable = true)
-    private String costo_diario;
-
     @Column(length = 255)
     private String descripcion;
 
