@@ -1,8 +1,5 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.controllers;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.*;
 import java.io.IOException;
-import java.util.UUID;
 import jakarta.validation.Valid;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Tools;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IToolsService;
@@ -40,23 +35,18 @@ public class ToolsController {
         }
         return ResponseEntity.notFound().build();
     }
-
     @PostMapping
     public ResponseEntity<?> createTool(
-            @RequestPart("tool") @Valid Tools tool,
-            @RequestPart("imagen") MultipartFile imagen,
-            BindingResult result
+        @RequestPart("tool") @Valid Tools tool,
+        @RequestPart("imagen") MultipartFile imagen,
+        BindingResult result
     ) {
         if (result.hasErrors()) {
             return validation(result);
         }
-
         try {
-            // Convertir archivo a byte[]
             byte[] bytes = imagen.getBytes();
             tool.setImagen(bytes);
-
-            // Guardar en la base de datos
             Tools savedTool = toolsService.save(tool);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedTool);
         } catch (IOException e) {
@@ -64,8 +54,6 @@ public class ToolsController {
                                 .body("Error al procesar la imagen: " + e.getMessage());
         }
     }
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Tools tool, @PathVariable Long id) {

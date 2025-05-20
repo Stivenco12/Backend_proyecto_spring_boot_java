@@ -29,30 +29,23 @@ public class Tools {
     private String name;
 
     @Lob
-    @Column(name = "datos_imagen", nullable = false)
-    private byte[] datosImagen;
+    @Column(name = "imagen")
+    private byte[] imagen;
 
     @Column(length = 50, nullable = true)
     private String brand;
 
-    @Column(length = 50, nullable = true)
-    private int stock;
+    @Column(nullable = true)
+    private Integer stock;
 
-    @Column(length = 50, nullable = true)
-    private String costo_diario;
-
-    
     @Column(length = 50, nullable = true)
     private String estado;
 
+    @Column(length = 255)
+    private String descripcion;
 
-    @Column(length = 50, nullable = true)
-    private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "Supplier_id")
-    @JsonBackReference
-    private Supplier supplierId;
+    @Column(name = "supplier_id")
+    private Long supplierId;
 
     @Embedded
     Audit audit = new Audit();
@@ -61,17 +54,9 @@ public class Tools {
     @Column(length = 50)
     private CategoryType category;
 
-
     @Column(nullable = false)
     private Integer disponibilidad;
 
     @Column(nullable = false)
     private Double costoDiario;
-
-    @Column(length = 255)
-    private String descripcion;
-
-    @Lob
-    @Column(name = "imagen")
-    private byte[] imagen;
 }
