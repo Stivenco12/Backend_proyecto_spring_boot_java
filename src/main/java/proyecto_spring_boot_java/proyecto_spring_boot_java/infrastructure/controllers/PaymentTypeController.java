@@ -16,7 +16,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 @RestController
 @RequestMapping("/api/PaymentType")
 public class PaymentTypeController {
-
     @Autowired
     private IPaymentTypeService paymentTypeService;
 

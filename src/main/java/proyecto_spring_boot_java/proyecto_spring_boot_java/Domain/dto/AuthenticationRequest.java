@@ -3,7 +3,6 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 import java.io.Serializable;
 
 public class AuthenticationRequest implements Serializable {
-
     private String username;
     private String password;
 

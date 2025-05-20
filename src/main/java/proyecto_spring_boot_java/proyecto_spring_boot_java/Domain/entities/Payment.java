@@ -28,5 +28,4 @@ public class Payment {
 
     @Embedded
     Audit audit = new Audit();
-
 }

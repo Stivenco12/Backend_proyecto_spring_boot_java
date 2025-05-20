@@ -13,7 +13,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.
 
 @Service
 public class UserImpl implements IUserService {
-
     @Autowired
     private UserRepository userRepository;
 

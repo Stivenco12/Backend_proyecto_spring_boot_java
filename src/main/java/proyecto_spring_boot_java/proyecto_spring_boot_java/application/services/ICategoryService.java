@@ -8,12 +8,8 @@ import java.util.Optional;
 
 public interface ICategoryService {
     Page<Category> findAll(Pageable pageable);
-
     Optional<Category> findOneById(Long categoryId);
-
     Category createOne(SaveCategory saveCategory);
-
     Category updateOneById(Long categoryId, SaveCategory saveCategory);
-
     Category disableOneById(Long categoryId);
 }

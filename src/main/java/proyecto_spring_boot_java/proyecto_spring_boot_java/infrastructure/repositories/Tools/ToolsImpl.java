@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class ToolsImpl implements IToolsService {
-
     private ToolsRepository repository;
 
     public ToolsImpl(ToolsRepository repository) {

@@ -44,5 +44,4 @@ public class AddressImpl implements IAddresService {
         });
         return addressOptional;        
     }
-
 }

@@ -17,7 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-
     @Autowired
     private ICategoryService categoryService;
 
@@ -63,5 +62,4 @@ public class CategoryController {
         Category category = categoryService.disableOneById(categoryId);
         return ResponseEntity.ok(category);
     }
-
 }

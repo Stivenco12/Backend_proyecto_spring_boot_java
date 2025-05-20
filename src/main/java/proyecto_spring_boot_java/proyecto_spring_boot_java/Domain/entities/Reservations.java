@@ -39,6 +39,4 @@ public class Reservations {
     @JoinColumn(name = "Payment_id")
     @JsonBackReference
     private Payment paymentId;
-
-    
 }

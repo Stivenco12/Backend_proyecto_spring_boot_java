@@ -4,7 +4,6 @@ import java.io.Serializable;
 import jakarta.validation.constraints.NotBlank;
 
 public class SaveCategory implements Serializable {
-
     @NotBlank
     private String name;
 

@@ -42,5 +42,4 @@ public enum Role {
     public void setPermissions(List<RolePermission> permissions) {
         this.permissions = permissions;
     }
-    
 }

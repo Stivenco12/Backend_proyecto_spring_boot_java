@@ -10,9 +10,9 @@ public class SaveUser implements Serializable {
     private String name;
     private String username;
     private String telefono;
-    @Size(min = 8)
+    @Size(min = 6)
     private String password;
-    @Size(min = 8)
+    @Size(min = 6)
     private String repeatedPassword;
     private Role role;
 

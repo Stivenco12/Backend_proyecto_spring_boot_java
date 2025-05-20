@@ -18,7 +18,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class HttpSecurityConfig {
-
     @Autowired
     private AuthenticationProvider daoAuthProvider;
 
@@ -37,9 +36,7 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
                     auth.anyRequest().authenticated();
                 })
-                .cors(withDefaults()) 
-            ;
-
+                .cors(withDefaults());
         return http.build();
     }
 

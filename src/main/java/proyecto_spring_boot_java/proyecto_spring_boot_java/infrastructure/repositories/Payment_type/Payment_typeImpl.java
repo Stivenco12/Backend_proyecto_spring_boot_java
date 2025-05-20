@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class Payment_typeImpl implements IPaymentTypeService {
-
     private Payment_typeRepository repository;
 
     public Payment_typeImpl(Payment_typeRepository repository) {
@@ -49,6 +48,4 @@ public class Payment_typeImpl implements IPaymentTypeService {
         });
         return paymentOptional;
     }
-
 }
-

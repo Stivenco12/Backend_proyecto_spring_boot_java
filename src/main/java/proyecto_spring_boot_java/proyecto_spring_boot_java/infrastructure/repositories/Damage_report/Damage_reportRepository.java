@@ -6,5 +6,4 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Damag
 
 @Repository
 public interface Damage_reportRepository extends JpaRepository<Damage_report, Long> {
-
 }

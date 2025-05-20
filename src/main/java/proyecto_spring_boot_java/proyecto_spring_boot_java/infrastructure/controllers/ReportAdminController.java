@@ -4,22 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.validation.Valid;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Report_admin;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IReporAdminService;
 
-
 @RestController
 @RequestMapping("/api/ReportAdmin")
 public class ReportAdminController {
-
     @Autowired
     private IReporAdminService reportAdminService;
 
