@@ -58,4 +58,15 @@ public class UserImpl implements IUserService {
         user.setRole(Role.ROLE_SUPPLIER);
         return userRepository.save(user);
     }
+
+    @Override
+    public User registrOneAdmin(SaveUser newUser) {
+        User user = new User();
+        user.setName(newUser.getName());
+        user.setUsername(newUser.getUsername());
+        user.setTelefono(newUser.getTelefono());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword())); 
+        user.setRole(Role.ROLE_ADMINISTRATOR);
+        return userRepository.save(user);
+    }
 }

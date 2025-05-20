@@ -88,4 +88,17 @@ public class AuthenticationService {
         userDto.setJwt(jwt);
         return userDto;
     }
+
+    
+    public RegisteredUser registrOneAdmin(SaveUser newUser) {
+        User user = userService.registrOneAdmin(newUser);
+        RegisteredUser userDto = new RegisteredUser();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setUsername(user.getUsername());
+        userDto.setRole(user.getRole().name());
+        String jwt = jwtService.generateToken(user, generateExtraClaims(user));
+        userDto.setJwt(jwt);
+        return userDto;
+    }
 }
