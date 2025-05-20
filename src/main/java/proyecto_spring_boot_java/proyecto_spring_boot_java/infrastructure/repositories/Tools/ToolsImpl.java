@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class ToolsImpl implements IToolsService {
-
     private ToolsRepository repository;
 
     public ToolsImpl(ToolsRepository repository) {
@@ -36,7 +35,13 @@ public class ToolsImpl implements IToolsService {
         if (existing.isPresent()) {
             Tools dbTool = existing.get();
             dbTool.setName(tool.getName());
-            dbTool.setCategory_tool(tool.getCategory_tool());
+            dbTool.setCategory(tool.getCategory());
+            dbTool.setDisponibilidad(tool.getDisponibilidad());
+            dbTool.setCostoDiario(tool.getCostoDiario());
+            dbTool.setDescripcion(tool.getDescripcion());
+            if (tool.getImagen() != null && tool.getImagen().length > 0) {
+                dbTool.setImagen(tool.getImagen());
+            }
             return Optional.of(repository.save(dbTool));
         }
         return Optional.empty();

@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class ReturnImpl implements IReturnService {
-
     private ReturnRepository repository;
 
     public ReturnImpl(ReturnRepository repository) {

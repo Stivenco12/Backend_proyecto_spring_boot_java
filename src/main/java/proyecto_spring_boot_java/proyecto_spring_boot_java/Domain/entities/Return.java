@@ -24,7 +24,7 @@ public class Return {
 
     @Column(length = 50, nullable = true)
     private String description;
-
+     
     @OneToOne
     @JoinColumn(name = "Damage_report_id")
     @JsonBackReference

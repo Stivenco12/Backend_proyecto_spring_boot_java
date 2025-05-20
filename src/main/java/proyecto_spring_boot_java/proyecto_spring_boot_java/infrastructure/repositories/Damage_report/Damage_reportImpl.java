@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class Damage_reportImpl implements IDamage_reportService {
-
     private Damage_reportRepository damageReportRepository;
 
     public Damage_reportImpl(Damage_reportRepository damageReportRepository) {
@@ -46,5 +45,5 @@ public class Damage_reportImpl implements IDamage_reportService {
             damageReportRepository.deleteById(id);
         });
         return damageReportOptional;
-}
+    }
 }

@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class RegionImpl implements IRegionService {
-
     private  RegionRepository repository;
 
     public RegionImpl(RegionRepository repository) {
@@ -49,5 +48,4 @@ public class RegionImpl implements IRegionService {
         });
         return regionOptional;
     }
-
 }

@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class CustomerImpl implements ICustomerService {
-
     private CustomerRepository customerRepository;
 
     public CustomerImpl(CustomerRepository customerRepository) {

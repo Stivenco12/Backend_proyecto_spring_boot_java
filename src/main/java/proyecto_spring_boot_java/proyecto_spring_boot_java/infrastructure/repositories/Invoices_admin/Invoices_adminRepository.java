@@ -6,5 +6,4 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Invoi
 
 @Repository
 public interface Invoices_adminRepository extends JpaRepository<Invoices_admin, Long> {
-    
 }

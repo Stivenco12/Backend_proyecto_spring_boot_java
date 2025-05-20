@@ -13,7 +13,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.
 
 @Service
 public class UserImpl implements IUserService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -27,10 +26,11 @@ public class UserImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setUsername(newUser.getUsername());
         user.setName(newUser.getName());
+        user.setTelefono(newUser.getTelefono());
         user.setRole(Role.ROLE_CUSTOMER);
         System.out.println("Guardando usuario: " + user.getUsername());
         return userRepository.save(user);   
-    }
+    } 
 
     @Override
     public Optional<User> findOneByUsername(String username) {
@@ -46,6 +46,26 @@ public class UserImpl implements IUserService {
         if(!dto.getPassword().equals(dto.getRepeatedPassword())){
             throw new InvalidPasswordException("Passwords don't match");
         }
+    }
+    @Override
+    public User registrOneSupplier(SaveUser newUser) {
+        User user = new User();
+        user.setName(newUser.getName());
+        user.setUsername(newUser.getUsername());
+        user.setTelefono(newUser.getTelefono());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword())); 
+        user.setRole(Role.ROLE_SUPPLIER);
+        return userRepository.save(user);
+    }
 
+    @Override
+    public User registrOneAdmin(SaveUser newUser) {
+        User user = new User();
+        user.setName(newUser.getName());
+        user.setUsername(newUser.getUsername());
+        user.setTelefono(newUser.getTelefono());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword())); 
+        user.setRole(Role.ROLE_ADMINISTRATOR);
+        return userRepository.save(user);
     }
 }

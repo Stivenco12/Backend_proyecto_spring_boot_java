@@ -3,7 +3,6 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 import java.io.Serializable;
 
 public class RegisteredUser implements Serializable {
-
     private Long id;
     private String username;
     private String name;
@@ -49,5 +48,4 @@ public class RegisteredUser implements Serializable {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
-
 }

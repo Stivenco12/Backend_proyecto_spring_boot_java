@@ -20,5 +20,4 @@ public class Report_admin {
 
     @Column(length = 50, nullable = true)
     private String description;
-
 }
