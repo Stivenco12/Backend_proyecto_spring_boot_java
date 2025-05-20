@@ -8,6 +8,7 @@ public class SaveUser implements Serializable {
     @Size(min = 4)
     private String name;
     private String username;
+    private String telefono;
     @Size(min = 8)
     private String password;
     @Size(min = 8)
@@ -45,4 +46,13 @@ public class SaveUser implements Serializable {
         this.repeatedPassword = repeatedPassword;
     }
     public SaveUser() {}
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
 }

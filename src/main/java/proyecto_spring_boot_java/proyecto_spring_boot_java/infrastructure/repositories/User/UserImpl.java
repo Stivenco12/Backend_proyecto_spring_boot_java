@@ -27,10 +27,11 @@ public class UserImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setUsername(newUser.getUsername());
         user.setName(newUser.getName());
+        user.setTelefono(newUser.getTelefono());
         user.setRole(Role.ROLE_CUSTOMER);
         System.out.println("Guardando usuario: " + user.getUsername());
         return userRepository.save(user);   
-    }
+    } 
 
     @Override
     public Optional<User> findOneByUsername(String username) {

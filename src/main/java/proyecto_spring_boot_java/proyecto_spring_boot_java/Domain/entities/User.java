@@ -36,6 +36,7 @@ public class User implements UserDetails {
     private String username;
     private String name;
     private String password;
+    private String telefono;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -122,6 +123,16 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+    public String getTelefono() {
+        return telefono;
+
+
+    }
+      public String setTelefono() {
+        return telefono;
+
+
     }
 }
 
