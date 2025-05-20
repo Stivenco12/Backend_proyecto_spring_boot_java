@@ -1,6 +1,7 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 
 import jakarta.validation.constraints.Size;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.Role;
 import java.io.Serializable;
 
 public class SaveUser implements Serializable {
@@ -9,10 +10,11 @@ public class SaveUser implements Serializable {
     private String name;
     private String username;
     private String telefono;
-    @Size(min = 8)
+    @Size(min = 6)
     private String password;
-    @Size(min = 8)
+    @Size(min = 6)
     private String repeatedPassword;
+    private Role role;
 
     public String getName() {
         return name;
@@ -54,5 +56,11 @@ public class SaveUser implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

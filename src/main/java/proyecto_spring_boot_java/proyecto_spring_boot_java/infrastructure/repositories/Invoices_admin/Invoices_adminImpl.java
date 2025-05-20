@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class Invoices_adminImpl implements IInvoices_adminService {
-
     private Invoices_adminRepository invoicesAdminRepository;
 
     public Invoices_adminImpl(Invoices_adminRepository invoicesAdminRepository) {
@@ -47,5 +46,4 @@ public class Invoices_adminImpl implements IInvoices_adminService {
         });
         return invoiceAdminOptional;
     }
-
 }

@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class SupplierImpl implements ISupplierService {
-
     private SupplierRepository repository;
 
     public SupplierImpl(SupplierRepository repository) {

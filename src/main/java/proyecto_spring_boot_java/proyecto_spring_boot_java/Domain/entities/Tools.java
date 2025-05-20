@@ -1,6 +1,5 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -8,9 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -38,20 +35,14 @@ public class Tools {
     @Column(length = 50, nullable = true)
     private int stock;
 
-
-
-    
     @Column(length = 50, nullable = true)
-    private String estado;
+    private String costo_diario;
 
+    @Column(length = 255)
+    private String descripcion;
 
-    @Column(length = 50, nullable = true)
-    private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "Supplier_id")
-    @JsonBackReference
-    private Supplier supplierId;
+    @Column(name = "supplier_id")
+    private Long supplierId;
 
     @Embedded
     Audit audit = new Audit();
@@ -60,17 +51,9 @@ public class Tools {
     @Column(length = 50)
     private CategoryType category;
 
-
     @Column(nullable = false)
     private Integer disponibilidad;
 
     @Column(nullable = false)
     private Double costoDiario;
-
-    @Column(length = 255)
-    private String descripcion;
-
-    @Lob
-    @Column(name = "imagen")
-    private byte[] imagen;
 }

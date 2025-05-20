@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class Repor_adminImpl implements IReporAdminService {
-
     private Repor_adminRepository repository;
 
     public Repor_adminImpl(Repor_adminRepository repository) {

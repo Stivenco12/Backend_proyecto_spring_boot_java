@@ -11,7 +11,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
-
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -37,16 +36,11 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public Category updateOneById(Long categoryId, SaveCategory saveCategory) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateOneById'");
     }
 
     @Override
     public Category disableOneById(Long categoryId) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'disableOneById'");
     }
-
-
-
 }

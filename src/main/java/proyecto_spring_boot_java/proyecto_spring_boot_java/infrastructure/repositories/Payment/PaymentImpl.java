@@ -8,7 +8,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.
 
 @Service
 public class PaymentImpl implements IPaymentService {
-
     private final PaymentRepository repository;
 
     public PaymentImpl(PaymentRepository repository) {

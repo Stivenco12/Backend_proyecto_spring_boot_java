@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
-
     @Autowired
     private AuthenticationService authenticationService;
 
@@ -27,4 +26,3 @@ public class CustomerController {
     }
 
 }
-

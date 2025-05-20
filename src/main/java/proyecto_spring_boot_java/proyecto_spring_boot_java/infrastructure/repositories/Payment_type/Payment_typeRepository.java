@@ -6,5 +6,4 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Payme
 
 @Repository
 public interface Payment_typeRepository extends JpaRepository<Payment_type, Long> {
-    
 }

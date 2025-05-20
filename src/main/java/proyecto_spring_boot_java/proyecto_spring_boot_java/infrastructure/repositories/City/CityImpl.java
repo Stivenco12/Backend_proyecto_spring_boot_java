@@ -51,5 +51,4 @@ public class CityImpl implements ICityService {
         });
         return cityOptional;        
     }
-    
 }
