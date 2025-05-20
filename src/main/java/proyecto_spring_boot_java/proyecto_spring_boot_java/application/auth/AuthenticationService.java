@@ -35,10 +35,8 @@ public class AuthenticationService {
         userDto.setName(user.getName());
         userDto.setUsername(user.getUsername());
         userDto.setRole(user.getRole().name());
-
         String jwt = jwtService.generateToken(user, generateExtraClaims(user));
         userDto.setJwt(jwt);
-
         return userDto;
     }
 
@@ -47,12 +45,10 @@ public class AuthenticationService {
         extraClaims.put("name",user.getName());
         extraClaims.put("role",user.getRole());
         extraClaims.put("authorities",user.getAuthorities());
-
         return extraClaims;
     }
 
     public AuthenticationResponse login(AuthenticationRequest autRequest) {
-
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 autRequest.getUsername(), autRequest.getPassword()
         );
@@ -64,9 +60,11 @@ public class AuthenticationService {
 
         AuthenticationResponse authRsp = new AuthenticationResponse();
         authRsp.setJwt(jwt);
+        authRsp.setUserId(((User) user).getId());  // <- aquí va el ID
 
         return authRsp;
     }
+
 
     public boolean validateToken(String jwt) {
 
@@ -77,7 +75,17 @@ public class AuthenticationService {
             System.out.println(e.getMessage());
             return false;
         }
+    }
 
+    public RegisteredUser registerOneSupplier(SaveUser newUser) {
+        User user = userService.registrOneSupplier(newUser);
+        RegisteredUser userDto = new RegisteredUser();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setUsername(user.getUsername());
+        userDto.setRole(user.getRole().name());
+        String jwt = jwtService.generateToken(user, generateExtraClaims(user));
+        userDto.setJwt(jwt);
+        return userDto;
     }
 }
-

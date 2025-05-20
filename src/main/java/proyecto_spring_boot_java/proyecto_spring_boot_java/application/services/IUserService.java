@@ -6,6 +6,6 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 
 public interface IUserService {
     User registrOneCustomer(SaveUser newUser);
-
+    User registrOneSupplier(SaveUser newUser);
     Optional<User> findOneByUsername(String username);
 }

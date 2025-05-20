@@ -47,6 +47,15 @@ public class UserImpl implements IUserService {
         if(!dto.getPassword().equals(dto.getRepeatedPassword())){
             throw new InvalidPasswordException("Passwords don't match");
         }
-
+    }
+    @Override
+    public User registrOneSupplier(SaveUser newUser) {
+        User user = new User();
+        user.setName(newUser.getName());
+        user.setUsername(newUser.getUsername());
+        user.setTelefono(newUser.getTelefono());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword())); 
+        user.setRole(Role.ROLE_SUPPLIER);
+        return userRepository.save(user);
     }
 }

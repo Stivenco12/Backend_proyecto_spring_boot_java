@@ -1,8 +1,8 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.security;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,19 +25,19 @@ public class HttpSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(daoAuthProvider)
-            .authorizeHttpRequests(auth -> {
-                auth.requestMatchers(HttpMethod.POST, "/customers").permitAll();
-                auth.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
-                auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
-                auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
-                auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
-                auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
-                auth.anyRequest().authenticated();
-            })
-            .cors() 
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(daoAuthProvider)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .cors(withDefaults()) 
             ;
 
         return http.build();
