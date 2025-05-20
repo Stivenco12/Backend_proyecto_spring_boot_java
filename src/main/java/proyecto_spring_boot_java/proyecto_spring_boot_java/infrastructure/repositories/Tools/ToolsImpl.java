@@ -30,28 +30,23 @@ public class ToolsImpl implements IToolsService {
         return repository.save(tool);
     }
 
-@Override
-public Optional<Tools> update(Long id, Tools tool) {
-    Optional<Tools> existing = repository.findById(id);
-    if (existing.isPresent()) {
-        Tools dbTool = existing.get();
-
-        dbTool.setName(tool.getName());
-        dbTool.setBrand(tool.getBrand());
-        dbTool.setCategory(tool.getCategory());
-        dbTool.setDisponibilidad(tool.getDisponibilidad());
-        dbTool.setCostoDiario(tool.getCostoDiario());
-        dbTool.setDescripcion(tool.getDescripcion());
-
-        // Actualiza la imagen solo si la nueva no es null (para evitar sobreescribir con null)
-        if (tool.getImagen() != null && tool.getImagen().length > 0) {
-            dbTool.setImagen(tool.getImagen());
+    @Override
+    public Optional<Tools> update(Long id, Tools tool) {
+        Optional<Tools> existing = repository.findById(id);
+        if (existing.isPresent()) {
+            Tools dbTool = existing.get();
+            dbTool.setName(tool.getName());
+            dbTool.setCategory(tool.getCategory());
+            dbTool.setDisponibilidad(tool.getDisponibilidad());
+            dbTool.setCostoDiario(tool.getCostoDiario());
+            dbTool.setDescripcion(tool.getDescripcion());
+            if (tool.getImagen() != null && tool.getImagen().length > 0) {
+                dbTool.setImagen(tool.getImagen());
+            }
+            return Optional.of(repository.save(dbTool));
         }
-        return Optional.of(repository.save(dbTool));
+        return Optional.empty();
     }
-    return Optional.empty();
-}
-
 
     @Override
     public Optional<Tools> delete(Long id) {
