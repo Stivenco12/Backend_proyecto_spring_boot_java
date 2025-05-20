@@ -45,7 +45,7 @@ public class ToolsController {
         }
         try {
             byte[] bytes = imagen.getBytes();
-            tool.setImagen(bytes);
+            tool.setDatosImagen(bytes);
             Tools savedTool = toolsService.save(tool);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedTool);
         } catch (IOException e) {

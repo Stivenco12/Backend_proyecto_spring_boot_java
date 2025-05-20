@@ -39,8 +39,8 @@ public class ToolsImpl implements IToolsService {
             dbTool.setDisponibilidad(tool.getDisponibilidad());
             dbTool.setCostoDiario(tool.getCostoDiario());
             dbTool.setDescripcion(tool.getDescripcion());
-            if (tool.getImagen() != null && tool.getImagen().length > 0) {
-                dbTool.setImagen(tool.getImagen());
+            if (tool.getDatosImagen() != null && tool.getDatosImagen().length > 0) {
+                dbTool.setDatosImagen(tool.getDatosImagen());
             }
             return Optional.of(repository.save(dbTool));
         }
