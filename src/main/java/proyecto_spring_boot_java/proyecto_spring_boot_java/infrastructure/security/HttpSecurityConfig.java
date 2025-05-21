@@ -34,6 +34,7 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
+                     auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll(); 
                     auth.anyRequest().authenticated();
                 })
                 .cors(withDefaults());
@@ -44,7 +45,7 @@ public class HttpSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://127.0.0.1:5501"));  // Cambia a la URL de tu frontend
+        config.setAllowedOrigins(List.of("http://127.0.0.1:5500"));  // Cambia a la URL de tu frontend
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

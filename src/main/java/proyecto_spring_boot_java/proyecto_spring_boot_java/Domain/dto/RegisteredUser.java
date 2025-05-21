@@ -2,11 +2,15 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 
 import java.io.Serializable;
 
+import javax.management.relation.Role;
+
 public class RegisteredUser implements Serializable {
     private Long id;
     private String username;
     private String name;
     private String role;
+    private Role rol;
+
     private String jwt;
 
     public Long getId() {
@@ -48,4 +52,13 @@ public class RegisteredUser implements Serializable {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
+
+    public Role getRol() {
+        return rol;
+    }
+
+    public void setRol(Role rol) {
+        this.rol = rol;
+    }
+    
 }
