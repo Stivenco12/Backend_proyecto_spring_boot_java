@@ -32,8 +32,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column( name = "correo",length = 50, nullable = false)
     private String username;
+    @Column(unique = true)
+    
     private String name;
     private String password;
     private String telefono;
@@ -134,4 +136,5 @@ public class User implements UserDetails {
 
 
     }
+
 }

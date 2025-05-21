@@ -10,9 +10,8 @@ public class RegisteredUser implements Serializable {
     private String name;
     private String role;
     private Role rol;
-
+     private String telefono;
     private String jwt;
-
     public Long getId() {
         return id;
     }
@@ -60,5 +59,14 @@ public class RegisteredUser implements Serializable {
     public void setRol(Role rol) {
         this.rol = rol;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
     
 }
