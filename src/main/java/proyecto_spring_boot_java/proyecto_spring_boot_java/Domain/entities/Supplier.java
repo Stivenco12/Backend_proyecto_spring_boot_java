@@ -45,7 +45,7 @@ public class Supplier {
     @Embedded
     Audit audit = new Audit();
 
-    @OneToMany(mappedBy = "supplierId",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Tools> tools = new HashSet<>();
 }
