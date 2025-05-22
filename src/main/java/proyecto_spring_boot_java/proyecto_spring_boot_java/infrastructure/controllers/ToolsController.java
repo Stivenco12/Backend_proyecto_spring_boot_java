@@ -50,8 +50,6 @@ public class ToolsController {
             tool.setDisponibilidad(toolDto.getDisponibilidad());
             tool.setCostoDiario(toolDto.getCostoDiario());
             tool.setDatosImagen(imagen.getBytes());
-
-            // Buscar usuario (ahora proveedor) por ID
             Optional<User> userOpt = userService.findById(toolDto.getUserId());
             if (userOpt.isEmpty()) {
                 return ResponseEntity
