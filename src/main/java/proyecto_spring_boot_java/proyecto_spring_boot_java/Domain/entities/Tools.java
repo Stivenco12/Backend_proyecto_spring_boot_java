@@ -47,7 +47,6 @@ public class Tools {
     @Column(nullable = false)
     private Double costoDiario;
 
-    // Cambiado de Supplier a User
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference

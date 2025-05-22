@@ -23,7 +23,7 @@ public class ToolsController {
     private IToolsService toolsService;
 
     @Autowired
-    private IUserService userService;  // servicio de usuarios
+    private IUserService userService;  
 
     @GetMapping
     public List<Tools> list() {
@@ -33,6 +33,7 @@ public class ToolsController {
     @GetMapping("/{id}")
     public ResponseEntity<?> view(@PathVariable Long id) {
         return toolsService.findById(id)
+        
             .map(tool -> ResponseEntity.ok(tool))
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -50,6 +51,7 @@ public class ToolsController {
             tool.setDisponibilidad(toolDto.getDisponibilidad());
             tool.setCostoDiario(toolDto.getCostoDiario());
             tool.setDatosImagen(imagen.getBytes());
+            
             Optional<User> userOpt = userService.findById(toolDto.getUserId());
             if (userOpt.isEmpty()) {
                 return ResponseEntity
