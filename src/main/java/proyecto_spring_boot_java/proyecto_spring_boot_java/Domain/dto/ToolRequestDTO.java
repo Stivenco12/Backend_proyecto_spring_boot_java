@@ -12,4 +12,5 @@ public class ToolRequestDTO {
     private Integer disponibilidad;
     private Double costoDiario;
     private Long userId;  
+    private byte[] datosImagen;
 }
