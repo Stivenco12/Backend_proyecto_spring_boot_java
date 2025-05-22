@@ -30,8 +30,6 @@ public class Tools {
     @Column(length = 255)
     private String descripcion;
 
-  
-
     @Embedded
     Audit audit = new Audit();
 
@@ -45,8 +43,9 @@ public class Tools {
     @Column(nullable = false)
     private Double costoDiario;
 
-      @ManyToOne
-    @JoinColumn(name = "supplier_id", nullable = false)
+    // Cambiado de Supplier a User
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
-    private Supplier supplier;
+    private User user;
 }

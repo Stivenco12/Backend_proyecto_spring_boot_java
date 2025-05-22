@@ -3,7 +3,9 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.contr
 import jakarta.validation.Valid;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.RegisteredUser;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.SaveUser;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.auth.AuthenticationService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IUserService;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repositories.User.UserImpl;
+
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
     private AuthenticationService authenticationService;
+
 
     @PostMapping
     public ResponseEntity<RegisteredUser> registerOne(@RequestBody @Valid SaveUser newUser){

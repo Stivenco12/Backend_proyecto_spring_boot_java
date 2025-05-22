@@ -1,6 +1,7 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,18 +42,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(role == null) return null;
-
-        if(role.getPermissions() == null) return null;
-
-        return role.getPermissions().stream()
-                .map(each -> each.name())
-                .map(each -> new SimpleGrantedAuthority(each))
-                .collect(Collectors.toList());
-    }
-
     @OneToMany
     @JoinColumn(name = "user_id")
     @JsonBackReference
@@ -64,13 +53,25 @@ public class User implements UserDetails {
     private City cityId;
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (role == null || role.getPermissions() == null) {
+            return Collections.emptyList();
+        }
+        
+        return role.getPermissions().stream()
+                .map(Enum::name)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     @Override
@@ -93,45 +94,13 @@ public class User implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Role getRole() {
-        return role;
+        return this.role;
     }
-
-    public void setRole(Role role) {
-        this.role = role;
+    public String getRoleName() {
+        return this.role != null ? this.role.name() : null;
     }
-    public String getTelefono() {
-        return telefono;
-
-
-    }
-      public String setTelefono() {
-        return telefono;
-
-
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
