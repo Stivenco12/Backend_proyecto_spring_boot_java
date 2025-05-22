@@ -35,7 +35,7 @@ public class ToolsImpl implements IToolsService {
         if (existing.isPresent()) {
             Tools dbTool = existing.get();
             dbTool.setName(tool.getName());
-            dbTool.setCategory(tool.getCategory());
+         
             dbTool.setDisponibilidad(tool.getDisponibilidad());
             dbTool.setCostoDiario(tool.getCostoDiario());
             dbTool.setDescripcion(tool.getDescripcion());

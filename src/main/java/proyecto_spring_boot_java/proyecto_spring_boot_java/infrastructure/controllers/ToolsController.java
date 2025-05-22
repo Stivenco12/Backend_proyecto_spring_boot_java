@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO;
-import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.CategoryType;
+
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Tools;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IToolsService;
@@ -46,7 +46,7 @@ public class ToolsController {
             Tools tool = new Tools();
             tool.setName(toolDto.getName());
             tool.setDescripcion(toolDto.getDescripcion());
-            tool.setCategory(CategoryType.valueOf(toolDto.getCategory()));
+          
             tool.setDisponibilidad(toolDto.getDisponibilidad());
             tool.setCostoDiario(toolDto.getCostoDiario());
             tool.setDatosImagen(imagen.getBytes());
