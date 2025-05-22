@@ -2,17 +2,18 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto;
 
 import java.io.Serializable;
 
-import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.Role;
+
 public class AuthenticationResponse implements Serializable {
     private String jwt;
     private Long userId;
-    private Role role;
+    private String role;
+
     public AuthenticationResponse() {
     }
-    public AuthenticationResponse(String jwt, Long userId, Role role) {
-        this.role = role;
+    public AuthenticationResponse(String jwt, Long userId, String role) {
         this.jwt = jwt;
         this.userId = userId;
+        this.role = role != null ? role.toUpperCase().trim() : null;
     }
 
     public String getJwt() {
@@ -30,10 +31,12 @@ public class AuthenticationResponse implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    public Role getRole() {
-        return role;
-    }
-    public void setRole(Role role) {
+
+    public void setRole(String role) {
         this.role = role;
     }
+    public String getRole() {
+        return role;
+    }
+
 }

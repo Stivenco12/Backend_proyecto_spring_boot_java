@@ -36,12 +36,8 @@ public class Tools {
   @Column(length = 255)
   private String descripcion;
 
-  @Embedded
-  Audit audit = new Audit();
-
-  @Enumerated(EnumType.STRING)
-  @Column(length = 50)
-  private CategoryType category;
+    @Embedded
+    Audit audit = new Audit();
 
   @Column(nullable = false)
   private Integer disponibilidad;
@@ -49,8 +45,11 @@ public class Tools {
   @Column(nullable = false)
   private Double costoDiario;
 
-  @ManyToOne
-  @JoinColumn(name = "supplier_id", nullable = false)
-  @JsonBackReference
-  private Supplier supplier;
+   
+
+    // Cambiado de Supplier a User
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user;
 }

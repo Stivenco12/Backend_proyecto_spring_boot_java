@@ -42,4 +42,24 @@ public enum Role {
     public void setPermissions(List<RolePermission> permissions) {
         this.permissions = permissions;
     }
+    public static boolean isValidRole(String roleName) {
+        try {
+            Role.valueOf(roleName.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    // Método para convertir string a Role
+    public static Role fromString(String roleName) {
+        if (roleName == null) {
+            throw new IllegalArgumentException("Rol no puede ser nulo");
+        }
+        try {
+            return Role.valueOf(roleName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Rol no válido: " + roleName);
+        }
+    }
 }

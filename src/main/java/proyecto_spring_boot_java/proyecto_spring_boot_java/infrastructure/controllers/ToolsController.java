@@ -1,25 +1,29 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import jakarta.validation.Valid;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.CategoryType;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Tools;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IToolsService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IUserService;
 
 @RestController
 @RequestMapping("/api/Tools")
 public class ToolsController {
     @Autowired
     private IToolsService toolsService;
+
+    @Autowired
+    private IUserService userService;  // servicio de usuarios
 
     @GetMapping
     public List<Tools> list() {
@@ -28,56 +32,55 @@ public class ToolsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> view(@PathVariable Long id) {
-        Optional<Tools> optional = toolsService.findById(id);
-        if (optional.isPresent()) {
-            return ResponseEntity.ok(optional.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
+        return toolsService.findById(id)
+            .map(tool -> ResponseEntity.ok(tool))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
-    @PostMapping
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createTool(
-        @RequestPart("tool") @Valid Tools tool,
-        @RequestPart("imagen") MultipartFile imagen,
-        BindingResult result
+        @RequestPart("tool") ToolRequestDTO toolDto,
+        @RequestPart("imagen") MultipartFile imagen
     ) {
-        if (result.hasErrors()) {
-            return validation(result);
-        }
         try {
-            byte[] bytes = imagen.getBytes();
-            tool.setDatosImagen(bytes);
-            Tools savedTool = toolsService.save(tool);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedTool);
+            Tools tool = new Tools();
+            tool.setName(toolDto.getName());
+            tool.setDescripcion(toolDto.getDescripcion());
+            tool.setCategory(CategoryType.valueOf(toolDto.getCategory()));
+            tool.setDisponibilidad(toolDto.getDisponibilidad());
+            tool.setCostoDiario(toolDto.getCostoDiario());
+            tool.setDatosImagen(imagen.getBytes());
+            Optional<User> userOpt = userService.findById(toolDto.getUserId());
+            if (userOpt.isEmpty()) {
+                return ResponseEntity
+                  .status(HttpStatus.BAD_REQUEST)
+                  .body("Usuario no encontrado");
+            }
+            tool.setUser(userOpt.get());
+
+            Tools saved = toolsService.save(tool);
+            return ResponseEntity
+              .status(HttpStatus.CREATED)
+              .body(saved);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body("Error al procesar la imagen: " + e.getMessage());
+            return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("Error al procesar la imagen: " + e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Tools tool, @PathVariable Long id) {
-        Optional<Tools> optional = toolsService.update(id, tool);
-        if (optional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(optional.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
+        return toolsService.update(id, tool)
+            .map(updated -> ResponseEntity.status(HttpStatus.CREATED).body(updated))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Optional<Tools> optional = toolsService.delete(id);
-        if (optional.isPresent()) {
-            return ResponseEntity.ok(optional.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    private ResponseEntity<?> validation(BindingResult result) {
-        Map<String, Object> response = new HashMap<>();
-        result.getFieldErrors().forEach(err -> {
-            String message = "Error in field '" + err.getField() + "': " + err.getDefaultMessage();
-            response.put("error", message);
-        });
-        return ResponseEntity.badRequest().body(response);
+        return toolsService.delete(id)
+            .map(deleted -> ResponseEntity.ok(deleted))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
+
