@@ -3,50 +3,54 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Base64;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "tools")
 public class Tools {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(length = 50, nullable = false)
-    private String name;
+  @Column(length = 50, nullable = false)
+  private String name;
 
-    @Lob
-    @Column(name = "datos_imagen", nullable = false)
-    private byte[] datosImagen;
+  @Lob
+  @Column(name = "datos_imagen", nullable = true)
+  @JsonIgnore
+  private byte[] datosImagen;
 
-    @Column(length = 50)
-    private String brand;
+  public String getImagenBase64() {
+    return datosImagen != null ? Base64.getEncoder().encodeToString(datosImagen) : null;
+  }
 
-    @Column
-    private int stock;
+  @Column
+  private int stock;
 
-    @Column(length = 255)
-    private String descripcion;
+  @Column(length = 255)
+  private String descripcion;
 
-  
+  @Embedded
+  Audit audit = new Audit();
 
-    @Embedded
-    Audit audit = new Audit();
+  @Enumerated(EnumType.STRING)
+  @Column(length = 50)
+  private CategoryType category;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50)
-    private CategoryType category;
+  @Column(nullable = false)
+  private Integer disponibilidad;
 
-    @Column(nullable = false)
-    private Integer disponibilidad;
+  @Column(nullable = false)
+  private Double costoDiario;
 
-    @Column(nullable = false)
-    private Double costoDiario;
-
-      @ManyToOne
-    @JoinColumn(name = "supplier_id", nullable = false)
-    @JsonBackReference
-    private Supplier supplier;
+  @ManyToOne
+  @JoinColumn(name = "supplier_id", nullable = false)
+  @JsonBackReference
+  private Supplier supplier;
 }
