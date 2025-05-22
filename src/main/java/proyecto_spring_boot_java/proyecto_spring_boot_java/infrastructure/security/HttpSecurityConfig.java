@@ -34,7 +34,9 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
-                     auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll(); 
+                    auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/Tools").permitAll();
+ 
                     auth.anyRequest().authenticated();
                 })
                 .cors(withDefaults());

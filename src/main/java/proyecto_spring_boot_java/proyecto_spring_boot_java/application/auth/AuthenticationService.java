@@ -3,10 +3,11 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.application.auth;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.AuthenticationRequest;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.AuthenticationResponse;
@@ -50,21 +51,25 @@ public class AuthenticationService {
 
     public AuthenticationResponse login(AuthenticationRequest autRequest) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                autRequest.getUsername(), autRequest.getPassword()
+                autRequest.getUsername(), 
+                autRequest.getPassword()
         );
-
         authenticationManager.authenticate(authentication);
 
-        UserDetails user = userService.findOneByUsername(autRequest.getUsername()).get();
-        String jwt = jwtService.generateToken(user, generateExtraClaims((User) user));
+        User user = userService.findOneByUsername(autRequest.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+        if (autRequest.getRole() != null && !autRequest.getRole().equalsIgnoreCase(user.getRole().name())) {
+            throw new AccessDeniedException("El rol seleccionado no coincide con tus permisos");
+        }
+
+        String jwt = jwtService.generateToken(user, generateExtraClaims(user));
         AuthenticationResponse authRsp = new AuthenticationResponse();
         authRsp.setJwt(jwt);
-        authRsp.setUserId(((User) user).getId());  // <- aquí va el ID
-
+        authRsp.setUserId(user.getId());
+        authRsp.setRole(user.getRole().name()); // Añadido para devolver el rol
         return authRsp;
     }
-
 
     public boolean validateToken(String jwt) {
 

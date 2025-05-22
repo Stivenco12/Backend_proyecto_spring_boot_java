@@ -4,7 +4,10 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.Authentica
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.AuthenticationResponse;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.auth.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -22,10 +25,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody @Valid AuthenticationRequest authenticationRequest){
-
-        AuthenticationResponse rsp = authenticationService.login(authenticationRequest);
-        return ResponseEntity.ok(rsp);
+    public ResponseEntity<?> authenticate(
+            @RequestBody @Valid AuthenticationRequest authenticationRequest) {
+        try {
+            AuthenticationResponse rsp = authenticationService.login(authenticationRequest);
+            return ResponseEntity.ok(rsp);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error durante la autenticación");
+        }
     }
 }
