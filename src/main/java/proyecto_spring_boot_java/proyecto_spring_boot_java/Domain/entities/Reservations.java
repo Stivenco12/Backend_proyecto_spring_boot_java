@@ -32,9 +32,9 @@ public class Reservations {
     private Tools toolsId;
 
     @ManyToOne
-    @JoinColumn(name = "Customer_id")
-    @JsonBackReference("customer-reservation")
-    private Customer customerId;
+    @JoinColumn(name = "User_id")
+    @JsonBackReference("user-reservation")
+    private User UserId;
 
     @Embedded
     Audit audit = new Audit();

@@ -34,7 +34,7 @@ public class ReservationsImpl implements IReservationsService {
         Optional<Reservations> existing = repository.findById(id);
         if (existing.isPresent()) {
             Reservations dbReservation = existing.get();
-            dbReservation.setCustomerId(reservations.getCustomerId());
+            dbReservation.setUserId(reservations.getUserId());
             return Optional.of(repository.save(dbReservation));
         }
         return Optional.empty();

@@ -26,8 +26,8 @@ public class Tools {
     private byte[] datosImagen;
 
     public String getImagenBase64() {
-    return datosImagen != null ? java.util.Base64.getEncoder().encodeToString(datosImagen) : null;
-}
+        return datosImagen != null ? java.util.Base64.getEncoder().encodeToString(datosImagen) : null;
+    }
 
     @Column(length = 50)
     private String brand;
@@ -57,6 +57,6 @@ public class Tools {
     private User user;
 
     @OneToMany(mappedBy = "toolsId")
-@JsonManagedReference("tools-reservation")
-private List<Reservations> reservations;
+    @JsonManagedReference("tools-reservation")
+    private List<Reservations> reservations;
 }
