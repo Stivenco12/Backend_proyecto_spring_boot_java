@@ -34,7 +34,7 @@ public class PaymentImpl implements IPaymentService {
         Optional<Payment> paymentOld = repository.findById(id);
         if (paymentOld.isPresent()) {
             Payment paymentDb = paymentOld.get();
-            paymentDb.setPayment_typeId(payment.getPayment_typeId()); // Asegúrate de que Payment tenga este setter
+            paymentDb.setPaymentTypeId(payment.getPaymentTypeId()); // Asegúrate de que Payment tenga este setter
             return Optional.of(repository.save(paymentDb));
         }
         return Optional.empty();

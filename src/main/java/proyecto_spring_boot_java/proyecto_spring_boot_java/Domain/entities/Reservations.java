@@ -1,5 +1,7 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -26,20 +28,20 @@ public class Reservations {
 
     @ManyToOne
     @JoinColumn(name = "Tools_id")
-    @JsonBackReference
+    @JsonBackReference("tools-reservation")
     private Tools toolsId;
 
     @ManyToOne
-    @JoinColumn(name = "Customer_id")
-    @JsonBackReference
-    private Customer customerId;
+    @JoinColumn(name = "User_id")
+    @JsonBackReference("user-reservation")
+    private User UserId;
 
     @Embedded
     Audit audit = new Audit();
 
     @OneToOne
     @JoinColumn(name = "Payment_id")
-    @JsonBackReference
+   @JsonBackReference("payment-reservation")
     private Payment paymentId;
 
     @Column(length = 250, nullable = true)
@@ -48,4 +50,10 @@ public class Reservations {
     @Lob
     @Column(name = "factura_pdf")
     private byte[] facturaPdf;
+
+     @Column(name = "fecha_reserva")
+    private LocalDate fechaReserva;
+
+    @Column(name = "fecha_devolucion")
+    private LocalDate fechaDevolucion;
 }

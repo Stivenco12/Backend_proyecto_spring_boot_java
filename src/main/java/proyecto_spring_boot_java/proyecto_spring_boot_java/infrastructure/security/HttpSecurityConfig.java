@@ -36,6 +36,7 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/Tools").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/Reservations").permitAll();
  
                     auth.anyRequest().authenticated();
                 })

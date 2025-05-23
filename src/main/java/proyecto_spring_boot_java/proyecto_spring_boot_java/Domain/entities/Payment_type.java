@@ -28,8 +28,8 @@ public class Payment_type {
     @Column(length = 50, nullable = true)
     private String type;
 
-    @OneToMany(mappedBy = "payment_typeId",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "paymentTypeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+@JsonManagedReference("paymenttype-payment")
     private Set<Payment> payments = new HashSet<>();
 
     @Embedded
