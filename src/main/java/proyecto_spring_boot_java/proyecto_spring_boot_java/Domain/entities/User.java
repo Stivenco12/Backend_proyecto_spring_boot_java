@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,15 +43,20 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private java.util.List<Address> addresses;
+
+    @OneToMany(mappedBy = "user")
+@JsonManagedReference("user-tools")
+private java.util.List<Tools> tools;
+
+ @ManyToOne
+@JoinColumn(name = "user_id")
+@JsonBackReference("user-address")
+private User user;
 
     @ManyToOne
-    @JoinColumn(name = "City_id")
-    @JsonBackReference
-    private City cityId;
+@JoinColumn(name = "City_id")
+@JsonBackReference("city-user")
+private City cityId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
