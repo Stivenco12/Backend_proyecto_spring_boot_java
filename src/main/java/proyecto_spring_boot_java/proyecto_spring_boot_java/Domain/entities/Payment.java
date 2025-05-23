@@ -1,6 +1,5 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,18 +20,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "Payments")
 public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @OneToOne(mappedBy = "paymentId")
-@JsonManagedReference("payment-reservation")
-private Reservations reservation;
+  @JsonManagedReference("payment-reservation")
+  private Reservations reservation;
 
-@ManyToOne
-@JoinColumn(name = "payment_type_id")
-@JsonBackReference("paymenttype-payment")
-private Payment_type paymentTypeId;
-@Embedded
-Audit audit = new Audit();
+  @ManyToOne
+  @JoinColumn(name = "payment_type_id")
+  @JsonBackReference("paymenttype-payment")
+  private Payment_type paymentTypeId;
+  @Embedded
+  Audit audit = new Audit();
 }
