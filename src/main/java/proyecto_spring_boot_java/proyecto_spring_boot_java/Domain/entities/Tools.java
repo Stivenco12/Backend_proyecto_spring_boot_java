@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Setter
@@ -57,6 +58,7 @@ public class Tools {
     private User user;
 
     @OneToMany(mappedBy = "toolsId")
+    @JsonIgnore
     @JsonManagedReference("tools-reservation")
     private List<Reservations> reservations;
 }

@@ -28,13 +28,13 @@ public class Reservations {
 
     @ManyToOne
     @JoinColumn(name = "Tools_id")
-    @JsonBackReference("tools-reservation")
+    
     private Tools toolsId;
 
     @ManyToOne
     @JoinColumn(name = "User_id")
     @JsonBackReference("user-reservation")
-    private User UserId;
+   private User user;
 
     @Embedded
     Audit audit = new Audit();
