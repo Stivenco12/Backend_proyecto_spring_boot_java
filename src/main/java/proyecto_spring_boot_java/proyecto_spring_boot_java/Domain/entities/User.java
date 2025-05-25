@@ -79,6 +79,9 @@ private City cityId;
     public String getUsername() {
         return this.username;
     }
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
