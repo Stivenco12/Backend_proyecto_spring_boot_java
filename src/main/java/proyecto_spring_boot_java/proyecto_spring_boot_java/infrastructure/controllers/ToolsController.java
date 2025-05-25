@@ -1,6 +1,8 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO2;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.CategoryType;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Tools;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IToolsService;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IUserService;
+
 
 @RestController
 @RequestMapping("/api/Tools")
@@ -23,7 +27,9 @@ public class ToolsController {
     private IToolsService toolsService;
 
     @Autowired
-    private IUserService userService;  
+    private IUserService userService; 
+    
+ 
 
     @GetMapping
     public List<Tools> list() {
@@ -84,5 +90,31 @@ public class ToolsController {
             .map(deleted -> ResponseEntity.ok(deleted))
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    
+    
+@GetMapping("/proveedor/{userId}")
+public ResponseEntity<Map<String, Object>> getToolsByProveedor(@PathVariable Long userId) {
+    Map<String, Object> response = new HashMap<>();
+
+    try {
+        // Obtiene directamente los DTOs desde el servicio
+        List<ToolRequestDTO2> herramientas = toolsService.getToolsByProveedor(userId);
+
+        if (herramientas.isEmpty()) {
+            response.put("error", "No se encontraron herramientas para el usuario.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        response.put("tools", herramientas);
+        return ResponseEntity.ok(response);
+
+    } catch (Exception e) {
+        response.put("error", "Error interno del servidor: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+}
+
+
+
 }
 

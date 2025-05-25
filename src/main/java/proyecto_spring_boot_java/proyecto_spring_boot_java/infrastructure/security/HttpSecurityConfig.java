@@ -38,6 +38,7 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/api/Tools").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/Reservations").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/Reservations/user/**").permitAll();
+                     auth.requestMatchers(HttpMethod.GET, "/api/Tools/proveedor/**").permitAll(); 
                     
  
                     auth.anyRequest().authenticated();
@@ -46,11 +47,11 @@ public class HttpSecurityConfig {
         return http.build();
     }
 
-    // Define la configuración CORS en un bean
+ 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://127.0.0.1:5500"));  // Cambia a la URL de tu frontend
+        config.setAllowedOrigins(List.of("http://127.0.0.1:5500")); 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

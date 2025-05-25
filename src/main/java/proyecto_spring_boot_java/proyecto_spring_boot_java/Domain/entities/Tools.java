@@ -23,6 +23,7 @@ public class Tools {
     private String name;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "datos_imagen", nullable = false)
     private byte[] datosImagen;
 
