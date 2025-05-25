@@ -31,11 +31,7 @@ public class Tools {
         return datosImagen != null ? java.util.Base64.getEncoder().encodeToString(datosImagen) : null;
     }
 
-    @Column(length = 50)
-    private String brand;
 
-    @Column
-    private int stock;
 
     @Column(length = 255)
     private String descripcion;
