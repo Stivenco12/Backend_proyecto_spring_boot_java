@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Setter
@@ -22,6 +23,7 @@ public class Tools {
     private String name;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "datos_imagen", nullable = false)
     private byte[] datosImagen;
 
@@ -29,11 +31,7 @@ public class Tools {
         return datosImagen != null ? java.util.Base64.getEncoder().encodeToString(datosImagen) : null;
     }
 
-    @Column(length = 50)
-    private String brand;
 
-    @Column
-    private int stock;
 
     @Column(length = 255)
     private String descripcion;
@@ -57,6 +55,7 @@ public class Tools {
     private User user;
 
     @OneToMany(mappedBy = "toolsId")
+    @JsonIgnore
     @JsonManagedReference("tools-reservation")
     private List<Reservations> reservations;
 }

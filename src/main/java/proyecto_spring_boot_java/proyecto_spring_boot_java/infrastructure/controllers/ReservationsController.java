@@ -22,7 +22,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import jakarta.validation.Valid;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Reservations;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.User;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IReservationsService;
+import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repositories.User.UserRepository;
 
 @RestController
 @RequestMapping("/api/Reservations")
@@ -30,6 +32,8 @@ public class ReservationsController {
     @Autowired
     private IReservationsService reservationsService;
 
+    @Autowired
+private UserRepository userRepository;
     @GetMapping
     public List<Reservations> list() {
         return reservationsService.findAll();
@@ -88,13 +92,18 @@ public class ReservationsController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Reservations reservation, BindingResult result) {
-        if (result.hasErrors()) {
-            return validation(result);
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservationsService.save(reservation));
+  @PostMapping
+public ResponseEntity<?> create(@Valid @RequestBody Reservations reservation, @RequestParam Long userId, BindingResult result) {
+    if (result.hasErrors()) {
+        return validation(result);
     }
+    Optional<User> userOpt = userRepository.findById(userId);
+    if (!userOpt.isPresent()) {
+        return ResponseEntity.badRequest().body("Usuario no encontrado");
+    }
+    reservation.setUser(userOpt.get());
+    return ResponseEntity.status(HttpStatus.CREATED).body(reservationsService.save(reservation));
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Reservations reservation, @PathVariable Long id) {
@@ -121,5 +130,9 @@ public class ReservationsController {
             response.put("error", message);
         });
         return ResponseEntity.badRequest().body(response);
+    }
+   @GetMapping("/user/{userId}")
+    public List<Reservations> getByUser(@PathVariable Long userId) {
+        return reservationsService.findByUserId(userId);
     }
 }

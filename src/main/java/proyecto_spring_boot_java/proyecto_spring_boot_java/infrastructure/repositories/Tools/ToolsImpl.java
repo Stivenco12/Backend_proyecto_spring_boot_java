@@ -3,6 +3,8 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repos
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+
+import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO2;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Tools;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IToolsService;
 
@@ -20,6 +22,7 @@ public class ToolsImpl implements IToolsService {
     }
 
     @Override
+    
     public Optional<Tools> findById(Long id) {
         return repository.findById(id);
     }
@@ -52,5 +55,10 @@ public class ToolsImpl implements IToolsService {
         Optional<Tools> toolOptional = repository.findById(id);
         toolOptional.ifPresent(t -> repository.deleteById(id));
         return toolOptional;
+
     }
+  public List<ToolRequestDTO2> getToolsByProveedor(Long userId) {
+    return repository.findByUser_Id(userId);
+}
+    
 }

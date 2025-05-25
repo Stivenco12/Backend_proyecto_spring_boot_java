@@ -3,6 +3,8 @@ package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repos
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Reservations;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.application.services.IReservationsService;
 
@@ -34,7 +36,7 @@ public class ReservationsImpl implements IReservationsService {
         Optional<Reservations> existing = repository.findById(id);
         if (existing.isPresent()) {
             Reservations dbReservation = existing.get();
-            dbReservation.setUserId(reservations.getUserId());
+            dbReservation.setUser(reservations.getUser());
             return Optional.of(repository.save(dbReservation));
         }
         return Optional.empty();
@@ -47,4 +49,8 @@ public class ReservationsImpl implements IReservationsService {
         return reservations;
     }
     
+  @Transactional
+    public List<Reservations> findByUserId(Long userId) {
+        return repository.findByUser_Id(userId);
+    }
 }

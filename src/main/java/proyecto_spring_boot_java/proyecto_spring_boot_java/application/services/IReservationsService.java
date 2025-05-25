@@ -6,7 +6,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.Reser
 
 public interface IReservationsService {
     List<Reservations> findAll();
-    
+ List<Reservations> findByUserId(Long userId);
 
     Optional<Reservations> findById(Long id);
     Reservations save(Reservations reservations);
