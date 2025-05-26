@@ -29,6 +29,7 @@ public class HttpSecurityConfig {
                 .authenticationProvider(daoAuthProvider)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/customers").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
@@ -37,15 +38,14 @@ public class HttpSecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/Tools").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/Reservations").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/Reservations").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/Reservations/user/**").permitAll();
                      auth.requestMatchers(HttpMethod.GET, "/api/Tools/proveedor/**").permitAll(); 
                      auth.requestMatchers(HttpMethod.DELETE, "/api/Reservations/**").permitAll();
                      auth.requestMatchers(HttpMethod.GET, "/api/Reservations/*/pdf").permitAll();
                    auth.requestMatchers(HttpMethod.DELETE, "/api/Tools/**").permitAll();
-
-
-                    
- 
+          
+                    auth.requestMatchers(HttpMethod.GET, "/suppliers").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .cors(withDefaults());
