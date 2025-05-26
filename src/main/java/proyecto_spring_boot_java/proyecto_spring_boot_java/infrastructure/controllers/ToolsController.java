@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.security.Principal;
+
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.dto.ToolRequestDTO2;
 import proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities.CategoryType;
@@ -84,13 +86,28 @@ public class ToolsController {
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        return toolsService.delete(id)
-            .map(deleted -> ResponseEntity.ok(deleted))
-            .orElseGet(() -> ResponseEntity.notFound().build());
+@DeleteMapping("/{id}/{userId}")
+public ResponseEntity<?> delete(@PathVariable Long id, Principal principal) {
+    Optional<Tools> toolOpt = toolsService.findById(id);
+
+    if (toolOpt.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Herramienta no encontrada");
     }
-    
+
+    Tools tool = toolOpt.get();
+
+    String usernameAutenticado = principal.getName();
+    String usernameDelDueño = tool.getUser().getUsername();
+
+    if (!usernameDelDueño.equals(usernameAutenticado)) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tienes permisos para eliminar esta herramienta");
+    }
+
+    toolsService.delete(id);
+    return ResponseEntity.ok("Herramienta eliminada correctamente");
+}
+
+
     
 @GetMapping("/proveedor/{userId}")
 public ResponseEntity<Map<String, Object>> getToolsByProveedor(@PathVariable Long userId) {

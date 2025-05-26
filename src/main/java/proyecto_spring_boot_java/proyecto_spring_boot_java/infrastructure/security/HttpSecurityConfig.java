@@ -41,6 +41,8 @@ public class HttpSecurityConfig {
                      auth.requestMatchers(HttpMethod.GET, "/api/Tools/proveedor/**").permitAll(); 
                      auth.requestMatchers(HttpMethod.DELETE, "/api/Reservations/**").permitAll();
                      auth.requestMatchers(HttpMethod.GET, "/api/Reservations/*/pdf").permitAll();
+                   auth.requestMatchers(HttpMethod.DELETE, "/api/Tools/**").permitAll();
+
 
                     
  
