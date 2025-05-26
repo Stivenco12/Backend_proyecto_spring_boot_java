@@ -6,7 +6,7 @@
 
 ## 🛠 Tecnologías Utilizadas
 
-- **Backend:** Java 21, Spring Boot 3.2
+- **Backend:** Java 17, Spring Boot 3.2
 - **Base de datos:** PostgreSQL
 - **WebSockets:** Comunicación en tiempo real para notificaciones
 - **Autenticación:** JWT (JSON Web Token)
@@ -18,7 +18,7 @@
 
 ### 📋 Requisitos
 
-- JDK 21
+- JDK 17
 - PostgreSQL 15+
 - Maven 3.9+
 
