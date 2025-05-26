@@ -1,5 +1,6 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.repositories.User;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import proyecto_spring_boot_java.proyecto_spring_boot_java.infrastructure.utils.
 
 @Service
 public class UserImpl implements IUserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -67,5 +69,15 @@ public class UserImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(newUser.getPassword())); 
         user.setRole(Role.ROLE_ADMINISTRATOR);
         return userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id)
+            .filter(user -> user.getRole().equals(Role.ROLE_SUPPLIER));
+    }
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

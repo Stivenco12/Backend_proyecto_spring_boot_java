@@ -1,17 +1,14 @@
 package proyecto_spring_boot_java.proyecto_spring_boot_java.Domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Setter
 @Getter
@@ -26,14 +23,18 @@ public class Tools {
     private String name;
 
     @Lob
-    @Column(name = "imagen")
-    private byte[] imagen;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "datos_imagen", nullable = false)
+    private byte[] datosImagen;
+
+    public String getImagenBase64() {
+        return datosImagen != null ? java.util.Base64.getEncoder().encodeToString(datosImagen) : null;
+    }
+
+
 
     @Column(length = 255)
     private String descripcion;
-
-    @Column(name = "supplier_id")
-    private Long supplierId;
 
     @Embedded
     Audit audit = new Audit();
@@ -47,4 +48,14 @@ public class Tools {
 
     @Column(nullable = false)
     private Double costoDiario;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("user-tools")
+    private User user;
+
+    @OneToMany(mappedBy = "toolsId")
+    @JsonIgnore
+    @JsonManagedReference("tools-reservation")
+    private List<Reservations> reservations;
 }

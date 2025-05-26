@@ -29,22 +29,34 @@ public class HttpSecurityConfig {
                 .authenticationProvider(daoAuthProvider)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/customers").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/products").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/Tools").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/suppliers").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/Tools").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/Reservations").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/Reservations").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/Reservations/user/**").permitAll();
+                     auth.requestMatchers(HttpMethod.GET, "/api/Tools/proveedor/**").permitAll(); 
+                     auth.requestMatchers(HttpMethod.DELETE, "/api/Reservations/**").permitAll();
+                     auth.requestMatchers(HttpMethod.GET, "/api/Reservations/*/pdf").permitAll();
+                   auth.requestMatchers(HttpMethod.DELETE, "/api/Tools/**").permitAll();
+          
+                    auth.requestMatchers(HttpMethod.GET, "/suppliers").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .cors(withDefaults());
         return http.build();
     }
 
-    // Define la configuración CORS en un bean
+ 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://127.0.0.1:5501"));  // Cambia a la URL de tu frontend
+        config.setAllowedOrigins(List.of("http://127.0.0.1:5500")); 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
