@@ -80,5 +80,4 @@ public class UserImpl implements IUserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
 }

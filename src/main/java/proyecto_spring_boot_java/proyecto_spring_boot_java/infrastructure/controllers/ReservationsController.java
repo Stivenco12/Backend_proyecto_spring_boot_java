@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
@@ -137,7 +138,7 @@ public class ReservationsController {
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(resource);
 
-        } catch (Exception e) {
+        } catch (DocumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error generando PDF: " + e.getMessage());
         }
