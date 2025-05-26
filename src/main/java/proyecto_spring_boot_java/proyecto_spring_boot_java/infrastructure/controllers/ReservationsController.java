@@ -114,7 +114,6 @@ public class ReservationsController {
 
             document.add(table);
 
-            // Footer o nota
             Paragraph nota = new Paragraph("Gracias por usar nuestra plataforma de alquiler de herramientas.", subtitleFont);
             nota.setSpacingBefore(30f);
             nota.setAlignment(Element.ALIGN_CENTER);
