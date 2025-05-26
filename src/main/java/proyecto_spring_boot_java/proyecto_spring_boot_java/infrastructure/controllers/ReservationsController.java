@@ -100,11 +100,8 @@ public class ReservationsController {
             addCell(table, "Costo Diario:", normalFont);
             addCell(table, String.valueOf(reservation.getToolsId().getCostoDiario()), normalFont);
 
-            addCell(table, "Disponibilidad:", normalFont);
-            addCell(table, String.valueOf(reservation.getToolsId().getDisponibilidad()), normalFont);
-
-            addCell(table, "ID de Pago:", normalFont);
-            addCell(table, reservation.getPaymentId() != null ? String.valueOf(reservation.getPaymentId().getId()) : "Sin pago", normalFont);
+        addCell(table, "Disponibilidad:", normalFont);
+        addCell(table, String.valueOf(reservation.getToolsId().getDisponibilidad()), normalFont);
 
             addCell(table, "Fecha de Inicio:", normalFont);
             addCell(table, String.valueOf(reservation.getFechaReserva()), normalFont);
