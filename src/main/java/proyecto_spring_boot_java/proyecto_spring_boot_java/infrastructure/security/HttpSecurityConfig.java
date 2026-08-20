@@ -57,7 +57,7 @@ public class HttpSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://100.61.142.99:8080")); 
+        config.setAllowedOrigins(List.of("http://amzn-beta-bucket-stivenson.s3-website-us-east-1.amazonaws.com")); 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
